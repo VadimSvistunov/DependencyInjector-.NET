@@ -86,7 +86,17 @@ namespace LibraryTest
         }
         
         [Test]
+        public void ResolveOpenGenericsDependency()
+        {
+            _configuration.Register<IRepository, Repository1>();
+            _configuration.Register(typeof(IService<>), typeof(Service4<>));
+            
+            DependencyProvider provider = new DependencyProvider(_configuration);
+            object service = provider.Resolve<IService<IRepository>>();
         
+            Assert.AreEqual(typeof(Service4<IRepository>), service.GetType());
+            Assert.NotNull((service as Service4<IRepository>)?.Repository);
+        }
 
         [Test]
         public void ResolveUnsupportedType()
