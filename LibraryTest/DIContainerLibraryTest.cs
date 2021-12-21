@@ -18,18 +18,7 @@ namespace LibraryTest
         }
 
         [Test]
-        public void ResolveBasicTypes()
-        {
-            _configuration.Register<IService, Service1>();
-            _configuration.Register<AbstractService, AbstractServiceImpl>();
-
-            DependencyProvider provider = new DependencyProvider(_configuration);
-            object service1 = provider.Resolve<IService>();
-            object abstractServiceImpl = provider.Resolve<AbstractService>();
-
-            Assert.AreEqual(typeof(Service1), service1.GetType());
-            Assert.AreEqual(typeof(AbstractServiceImpl), abstractServiceImpl.GetType());
-        }
+        
         
         [Test]
         public void ResolveRecursiveDependency()
