@@ -9,13 +9,7 @@ namespace DependencyInjectionContainerLibrary
         private readonly Dictionary<Type, List<Implementation> > _configuration = new ();
         
         public void Register<TType, TImplementation>(bool isSingleton = true) where TType: class
-            where TImplementation: TType
-        {
-            if (!_configuration.ContainsKey(typeof(TType)))
-            { 
-                _configuration[typeof(TType)] = new List<Implementation>();
-            }
-            _configuration[typeof(TType)].Add(new Implementation(typeof(TImplementation), isSingleton));
+            
         }
         
         public void Register(Type dependency, Type implementation, bool isSingleton = true)
