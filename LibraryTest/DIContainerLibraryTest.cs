@@ -44,16 +44,7 @@ namespace LibraryTest
         }
         
         [Test]
-        public void ResolveInstancePerDependencyCreating()
-        {
-            _configuration.Register<IService, Service1>(false);
-            
-            DependencyProvider provider = new DependencyProvider(_configuration);
-            object service1 = provider.Resolve<IService>();
-            object service2 = provider.Resolve<IService>();
-
-            Assert.AreNotEqual( service1, service2);
-        }
+        
         
         [Test]
         public void ResolveEnumerable()
