@@ -11,9 +11,14 @@ namespace DependencyInjectionContainerLibrary
     {
         private DependencyConfiguration _configuration;
 
+        public List<Type> listInstances;
+        public List<object> listPoint;
+
         public DependencyProvider(DependencyConfiguration configuration)
         {
             _configuration = configuration;
+            listInstances = new List<Type>();
+            listPoint = new List<object>();
         }
         
         public Object Resolve<TType>() where TType : class
@@ -63,13 +68,37 @@ namespace DependencyInjectionContainerLibrary
                 ParameterInfo[] parameters = constructorInfo.GetParameters();
                 if (parameters.All(param => _configuration.HasType(param.ParameterType)))
                 {
-                    Object value = constructorInfo.Invoke(parameters.Select(param =>
-                        Resolve(_configuration.GetFirstImplementation(param.ParameterType))).ToArray());
+                    Object value;
+                    
+                    if (instanceWasCreate(parameters))
+                    {
+                        value = constructors[1].Invoke(null);
+                        listPoint.Add(value);
+                    }
+                    else
+                    {
+                        value = constructorInfo.Invoke(parameters.Select(param =>
+                            Resolve(_configuration.GetFirstImplementation(param.ParameterType))).ToArray());
+                    }
+
                     return value;
                 }
             }
 
             throw new NoSuitableConstructorException("No suitable constructor for type: " + type.FullName);
+        }
+
+        private bool instanceWasCreate(ParameterInfo[] parameters)
+        {
+            foreach (var param in parameters)
+            {
+                Type type = _configuration.GetFirstImplementation(param.ParameterType).Type;
+                if (listInstances.Contains(type))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private object ResolveOpenGeneric(Type baseType, Type genericArgumentType)
@@ -84,14 +113,39 @@ namespace DependencyInjectionContainerLibrary
             {
                 return implementation.Value;
             }
-
+            
+            listInstances.Add(type);
+            
             object value = CreateObject(type);
+
             if (implementation.IsSingleton)
             {
                 implementation.Value = value;
             }
 
+            if (listPoint.Count != 0)
+            {
+                endMethod();
+            }
+            
             return value;
+        }
+
+        private void endMethod()
+        {   
+            for(int i = 0; i < listPoint.Count; i++) {
+                PropertyInfo[] properties = listPoint[i].GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                foreach (var property in properties)
+                {
+                    Implementation impl = _configuration.GetFirstImplementation(property.PropertyType);
+                    if (listInstances.Contains(impl.Type))
+                    {
+                        
+                        property.SetValue(listPoint[i],Resolve(impl));
+                    }
+                }
+            }
+            listPoint.Clear();
         }
     }
 }

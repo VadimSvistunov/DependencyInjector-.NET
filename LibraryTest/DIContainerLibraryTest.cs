@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
 using DependencyInjectionContainerLibrary;
 using DependencyInjectionContainerLibrary.Exceptions;
 using NUnit.Framework;
@@ -38,13 +37,13 @@ namespace LibraryTest
             _configuration.Register<IRepository, Repository1>();
             
             DependencyProvider provider = new DependencyProvider(_configuration);
-            object service = provider.Resolve<IService>();
-
+            IService service = (IService)provider.Resolve<IService>();
+            
             Assert.AreEqual( typeof(Service3), service.GetType());
         }
         
         [Test]
-        public void ResolveInstancePerDependencyCreating()
+        public void ResolveNotSingletonCreating()
         {
             _configuration.Register<IService, Service1>(false);
             
@@ -113,6 +112,41 @@ namespace LibraryTest
 
             DependencyProvider provider = new DependencyProvider(_configuration);
             Assert.Throws<NoSuitableConstructorException>(() => provider.Resolve<IService>());
+        }
+        
+        [Test]
+        public void ResolveCyclingDepencies()
+        {
+            _configuration.Register<IA, A>();
+            _configuration.Register<IB, B>();  
+
+            DependencyProvider provider = new DependencyProvider(_configuration);
+            
+            A a = (A) provider.Resolve<IA>();
+            B b = (B) provider.Resolve<IB>();
+            
+            Assert.AreEqual(b, a.b);
+
+        }
+        
+        [Test]
+        public void ResolveCycling3Depencies()
+        {
+            _configuration.Register<IQ, Q>();
+            _configuration.Register<IW, W>();  
+            _configuration.Register<IE, E>(); 
+
+            DependencyProvider provider = new DependencyProvider(_configuration);
+            
+            Q q = (Q) provider.Resolve<IQ>();
+            W w = (W) provider.Resolve<IW>();
+            E e = (E) provider.Resolve<IE>();
+
+            
+            Assert.AreEqual(w, q.w);
+            Assert.AreEqual(e, w.e);
+            
+            
         }
     }
 }

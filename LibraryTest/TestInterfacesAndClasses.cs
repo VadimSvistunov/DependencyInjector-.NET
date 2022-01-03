@@ -23,7 +23,7 @@
         }
 
         public interface IRepository{}
-    
+
         public class Repository1 : IRepository {}
 
         public interface IService<TRepository> where TRepository : IRepository {}
@@ -45,5 +45,92 @@
             }
             public IRepository Repository { get; set; }
         }
+        
+        public interface IA { }
+
+        public class A : IA
+        {
+            public IB b { get; set; }
+
+            
+            public A(IB b)
+            {
+                this.b = b;
+            }
+
+            public A()
+            {
+                
+            }
+            
+            
+        }
+        
+        public interface IB {}
+
+        public class B : IB
+        {
+            public IA a { get; set; }
+
+            
+            public B(IA a)
+            {
+                this.a = a;
+            }
+
+            public B() {}
+        }
+        
+        
+        public interface IQ { }
+
+        public class Q : IQ
+        {
+            public IW w { get; set; }
+
+            
+            public Q(IW w)
+            {
+                this.w = w;
+            }
+
+            public Q()
+            {
+                
+            }
+            
+            
+        }
+        
+        public interface IW {}
+
+        public class W : IW
+        {
+            public IE e { get; set; }
+
+            
+            public W(IE e)
+            {
+                this.e = e;
+            }
+
+            public W() {}
+        }
+        
+        public interface IE {}
+
+        public class E : IE
+        {
+            public IQ q { get; set; }
+
+            
+            public E(IQ q)
+            {
+                this.q = q;
+            }
+
+            public E() {}
+        }
+        
     }
 }

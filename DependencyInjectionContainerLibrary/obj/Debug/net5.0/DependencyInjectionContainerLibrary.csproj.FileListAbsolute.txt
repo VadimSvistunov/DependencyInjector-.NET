@@ -10,3 +10,15 @@ D:\учеба\СПП\DependencyInjectionContainer\DependencyInjectionContainerLi
 D:\учеба\СПП\DependencyInjectionContainer\DependencyInjectionContainerLibrary\obj\Debug\net5.0\DependencyInjectionContainerLibrary.dll
 D:\учеба\СПП\DependencyInjectionContainer\DependencyInjectionContainerLibrary\obj\Debug\net5.0\ref\DependencyInjectionContainerLibrary.dll
 D:\учеба\СПП\DependencyInjectionContainer\DependencyInjectionContainerLibrary\obj\Debug\net5.0\DependencyInjectionContainerLibrary.pdb
+D:\BSUIR\TEMPORAL_SHIT\SPP5\DependencyInjectionContainerLibrary\bin\Debug\net5.0\DependencyInjectionContainerLibrary.deps.json
+D:\BSUIR\TEMPORAL_SHIT\SPP5\DependencyInjectionContainerLibrary\bin\Debug\net5.0\DependencyInjectionContainerLibrary.dll
+D:\BSUIR\TEMPORAL_SHIT\SPP5\DependencyInjectionContainerLibrary\bin\Debug\net5.0\ref\DependencyInjectionContainerLibrary.dll
+D:\BSUIR\TEMPORAL_SHIT\SPP5\DependencyInjectionContainerLibrary\bin\Debug\net5.0\DependencyInjectionContainerLibrary.pdb
+D:\BSUIR\TEMPORAL_SHIT\SPP5\DependencyInjectionContainerLibrary\obj\Debug\net5.0\DependencyInjectionContainerLibrary.csproj.AssemblyReference.cache
+D:\BSUIR\TEMPORAL_SHIT\SPP5\DependencyInjectionContainerLibrary\obj\Debug\net5.0\DependencyInjectionContainerLibrary.GeneratedMSBuildEditorConfig.editorconfig
+D:\BSUIR\TEMPORAL_SHIT\SPP5\DependencyInjectionContainerLibrary\obj\Debug\net5.0\DependencyInjectionContainerLibrary.AssemblyInfoInputs.cache
+D:\BSUIR\TEMPORAL_SHIT\SPP5\DependencyInjectionContainerLibrary\obj\Debug\net5.0\DependencyInjectionContainerLibrary.AssemblyInfo.cs
+D:\BSUIR\TEMPORAL_SHIT\SPP5\DependencyInjectionContainerLibrary\obj\Debug\net5.0\DependencyInjectionContainerLibrary.csproj.CoreCompileInputs.cache
+D:\BSUIR\TEMPORAL_SHIT\SPP5\DependencyInjectionContainerLibrary\obj\Debug\net5.0\DependencyInjectionContainerLibrary.dll
+D:\BSUIR\TEMPORAL_SHIT\SPP5\DependencyInjectionContainerLibrary\obj\Debug\net5.0\ref\DependencyInjectionContainerLibrary.dll
+D:\BSUIR\TEMPORAL_SHIT\SPP5\DependencyInjectionContainerLibrary\obj\Debug\net5.0\DependencyInjectionContainerLibrary.pdb
