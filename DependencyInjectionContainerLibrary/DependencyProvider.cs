@@ -13,12 +13,14 @@ namespace DependencyInjectionContainerLibrary
 
         public List<Type> listInstances;
         public List<object> listPoint;
-
+        public int count;
+        
         public DependencyProvider(DependencyConfiguration configuration)
         {
             _configuration = configuration;
             listInstances = new List<Type>();
             listPoint = new List<object>();
+            count = 0;
         }
         
         public Object Resolve<TType>() where TType : class
@@ -42,7 +44,9 @@ namespace DependencyInjectionContainerLibrary
             if (_configuration.HasType(type))
             {
                 Implementation implementation = _configuration.GetFirstImplementation(type);
-                return Resolve(implementation) as TType;
+                object obj = Resolve(implementation);
+                searchPointInstance();
+                return obj as TType;
             }
 
             if (type.IsGenericType)
@@ -108,7 +112,9 @@ namespace DependencyInjectionContainerLibrary
 
         private object Resolve(Implementation implementation)
         {
+            count++;
             Type type = implementation.Type;
+            bool flag = false; 
             if (implementation.IsSingleton && implementation.Value != null)
             {
                 return implementation.Value;
@@ -123,29 +129,21 @@ namespace DependencyInjectionContainerLibrary
                 implementation.Value = value;
             }
 
-            if (listPoint.Count != 0)
-            {
-                endMethod();
-            }
-            
             return value;
         }
 
-        private void endMethod()
-        {   
+        private void searchPointInstance()
+        {
             for(int i = 0; i < listPoint.Count; i++) {
                 PropertyInfo[] properties = listPoint[i].GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
                 foreach (var property in properties)
                 {
                     Implementation impl = _configuration.GetFirstImplementation(property.PropertyType);
-                    if (listInstances.Contains(impl.Type))
-                    {
-                        
-                        property.SetValue(listPoint[i],Resolve(impl));
-                    }
+                    property.SetValue(listPoint[i],Resolve(impl));
                 }
             }
             listPoint.Clear();
+            
         }
     }
 }

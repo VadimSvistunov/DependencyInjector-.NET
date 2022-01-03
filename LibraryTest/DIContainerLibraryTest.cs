@@ -119,34 +119,19 @@ namespace LibraryTest
         {
             _configuration.Register<IA, A>();
             _configuration.Register<IB, B>();  
+            _configuration.Register<IC, C>();  
 
             DependencyProvider provider = new DependencyProvider(_configuration);
             
             A a = (A) provider.Resolve<IA>();
             B b = (B) provider.Resolve<IB>();
+            C c = (C) provider.Resolve<IC>();
             
-            Assert.AreEqual(b, a.b);
+            Assert.AreSame(a, b.a);
+            Assert.AreSame(b.c,c);
+            Assert.AreSame(c.b,b);
 
         }
         
-        [Test]
-        public void ResolveCycling3Depencies()
-        {
-            _configuration.Register<IQ, Q>();
-            _configuration.Register<IW, W>();  
-            _configuration.Register<IE, E>(); 
-
-            DependencyProvider provider = new DependencyProvider(_configuration);
-            
-            Q q = (Q) provider.Resolve<IQ>();
-            W w = (W) provider.Resolve<IW>();
-            E e = (E) provider.Resolve<IE>();
-
-            
-            Assert.AreEqual(w, q.w);
-            Assert.AreEqual(e, w.e);
-            
-            
-        }
     }
 }

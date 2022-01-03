@@ -71,14 +71,31 @@
         public class B : IB
         {
             public IA a { get; set; }
+            public IC c { get; set; }
 
-            
-            public B(IA a)
+
+            public B(IA a, IC c)
             {
                 this.a = a;
+                this.c = c;
             }
 
             public B() {}
+        }
+        
+        public interface IC {}
+
+        public class C : IC
+        {
+            public IB b { get; set; }
+
+            
+            public C(IB b)
+            {
+                this.b = b;
+            }
+
+            public C() {}
         }
         
         
